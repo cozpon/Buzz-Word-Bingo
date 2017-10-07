@@ -3,13 +3,19 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+app.use(express.static('public'));
 
 let buzzStorage = [];
 
 app.use(bodyParser.urlencoded({extended : true}));
 
+
+app.get('/', (req, res) => {
+  res.send("index.html");
+});
+
 app.get('/buzzwords', (req, res) => {
-    res.send(buzzStorage);
+    res.json(buzzStorage);
   });
 
 app.route('/buzzword')
@@ -25,9 +31,7 @@ app.route('/buzzword')
     res.send("delete done");
   });
 
-app.get('/', (req, res) => {
-  res.send("index.html");
-});
+
 
 const server = app.listen(3000, () => {
   console.log("You are listening on port 3000");
