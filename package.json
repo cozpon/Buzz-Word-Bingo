@@ -1,0 +1,22 @@
+{
+  "name": "buzz-word-bingo",
+  "version": "0.0.0",
+  "description": "Making a memory saved bingo names",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cozpon/Buzz-Word-Bingo.git"
+  },
+  "author": "Ricky Peters",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cozpon/Buzz-Word-Bingo/issues"
+  },
+  "homepage": "https://github.com/cozpon/Buzz-Word-Bingo#readme",
+  "dependencies": {
+    "express": "^4.16.1"
+  }
+}
