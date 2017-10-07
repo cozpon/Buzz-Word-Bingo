@@ -4,20 +4,19 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-const router = express.Router();
-
-app.use('/', router);
+let buzzStorage = [];
 
 app.use(bodyParser.urlencoded({extended : true}));
 
+app.get('/buzzwords', (req, res) => {
+    res.send(buzzStorage);
+  });
+
 app.route('/buzzword')
-  .get((req, res) => {
-    res.send("TEST");
-  })
   .post((req, res) => {
+    buzzStorage.push(req.body);
     console.log(req.body); // the JSON
-    res.send(req.body); //echo the result
-   // app.use(bodyParser.urlencoded({ "success": true }));
+    res.send({"sucess": true}); //echo the result
   })
   .put((req, res) => {
     res.send("put done");
