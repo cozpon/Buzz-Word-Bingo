@@ -30,13 +30,15 @@ app.route('/buzzword')
       res.json(pass);
       console.log(req.body.buzzWord + " successfully added!");
     } else {
-      console.log(buzzStorage);
-      if(buzzStorage.indexOf(req.body.buzzWord) > -1){
-        console.log("One");
-        } else {
-        res.json(fail);
-        console.log(req.body.buzzWord + " already in");
+        for(let i = 0; i < buzzStorage.length; i++){
+          if(buzzStorage[i].buzzWord === req.body.buzzWord){
+            console.error("Buzzword already used");
+            return res.json(fail);
           }
+        }
+      buzzStorage.push(req.body);
+      res.json(pass);
+      console.log(req.body.buzzWord + " successfully added!");
       }
   })
 
