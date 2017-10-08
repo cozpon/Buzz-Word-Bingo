@@ -5,13 +5,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : true}));
 
 let buzzStorage = [];
 let playerPoints = 0;
 let pass = {"sucess": true};
 let fail = {"sucess": false};
 
-app.use(bodyParser.urlencoded({extended : true}));
 
 app.get('/', (req, res) => {
   res.json("index.html");
@@ -24,21 +25,18 @@ app.get('/buzzwords', (req, res) => {
 app.route('/buzzword')
   .post((req, res) => {
     if (!req.body || !req.body.buzzWord || !req.body.heard) return res.sendStatus(400);
-    let idx = buzzStorage.map((elem, index) => {
-      console.log(index);
-      return index;
-    });
-    if(buzzStorage.length <= 0){
+    if(buzzStorage.length === 0){
       buzzStorage.push(req.body);
       res.json(pass);
       console.log(req.body.buzzWord + " successfully added!");
-    } else if (buzzStorage[idx] === req.body.buzzword){
-      console.error("Buzzword already in list!");
-      res.send(fail);
-      } else {
-        buzzStorage.push(req.body);
-        res.json(pass);
-        console.log(req.body.buzzWord + " successfully added!");
+    } else {
+      console.log(buzzStorage);
+      if(buzzStorage.indexOf(req.body.buzzWord) > -1){
+        console.log("One");
+        } else {
+        res.json(fail);
+        console.log(req.body.buzzWord + " already in");
+          }
       }
   })
 
@@ -55,7 +53,8 @@ app.route('/buzzword')
   })
 
   .delete((req, res) => {
-    res.send("delete done");
+     if (!req.body || !req.body.buzzWord) return res.sendStatus(400);
+     console.log(req.body.buzzWord);
   });
 
 
