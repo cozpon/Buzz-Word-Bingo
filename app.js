@@ -30,7 +30,7 @@ app.post('/reset', (req, res) => {
 app.route('/buzzword')
   .post((req, res) => {
     if (!req.body || !req.body.buzzWord || !req.body.heard) return res.sendStatus(400);
-    if(buzzStorage.length === 0){
+    if (buzzStorage.length === 0){
       buzzStorage.push(req.body);
       res.json(pass);
       console.log(req.body.buzzWord + " successfully added!");
@@ -44,7 +44,7 @@ app.route('/buzzword')
        buzzStorage.push(req.body);
        res.json(pass);
        console.log(req.body.buzzWord + " successfully added!");
-    }else{
+    } else {
       console.log("Too many Buzzwords");
       return res.json(fail);
     }
@@ -68,10 +68,7 @@ app.route('/buzzword')
       if(buzzStorage[i].buzzWord === req.body.buzzWord){
         let deleted = buzzStorage.splice(i, 1);
         return res.send(pass);
-      }
-      else{
-        return res.send(fail);
-      }
+      } else return res.send(fail);
     }
   });
 
