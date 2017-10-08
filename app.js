@@ -4,7 +4,6 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
-app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 
@@ -19,7 +18,13 @@ app.get('/', (req, res) => {
 });
 
 app.get('/buzzwords', (req, res) => {
-    res.json(buzzStorage);
+  res.json(buzzStorage);
+});
+
+app.post('/reset', (req, res) => {
+  playerPoints = 0;
+  buzzStorage = [];
+  res.json(pass);
 });
 
 app.route('/buzzword')
@@ -64,10 +69,11 @@ app.route('/buzzword')
         let deleted = buzzStorage.splice(i, 1);
         return res.send(pass);
       }
+      else{
+        return res.send(fail);
+      }
     }
   });
-
-
 
 const server = app.listen(PORT, () => {
   console.log("You are listening on port " + PORT);
