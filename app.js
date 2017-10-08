@@ -39,7 +39,6 @@ app.route('/buzzword')
        buzzStorage.push(req.body);
        res.json(pass);
        console.log(req.body.buzzWord + " successfully added!");
-
     }else{
       console.log("Too many Buzzwords");
       return res.json(fail);
@@ -52,15 +51,20 @@ app.route('/buzzword')
       if(buzzStorage[i].buzzWord === req.body.buzzWord){
         buzzStorage[i].heard = true; // changes HEARD status to TRUE.
         playerPoints += parseInt(buzzStorage[i].points); // adds buzzword points
-        console.log(playerPoints);
-        return res.json(pass); // sends back to client true
+        return res.send(pass);
+        //return res.json(String(playerPoints));  // sends back to client true
       }
     }
   })
 
   .delete((req, res) => {
-     if (!req.body || !req.body.buzzWord) return res.sendStatus(400);
-     console.log(req.body.buzzWord);
+    if (!req.body || !req.body.buzzWord) return res.sendStatus(400);
+    for(let i = 0; i < buzzStorage.length; i++){ // I know my storage is limited to 5
+      if(buzzStorage[i].buzzWord === req.body.buzzWord){
+        let deleted = buzzStorage.splice(i, 1);
+        return res.send(pass);
+      }
+    }
   });
 
 
