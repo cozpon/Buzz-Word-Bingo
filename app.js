@@ -56,7 +56,7 @@ app.route('/buzzword')
       if(buzzStorage[i].buzzWord === req.body.buzzWord){
         buzzStorage[i].heard = true; // changes HEARD status to TRUE.
         playerPoints += parseInt(buzzStorage[i].points); // adds buzzword points
-        return res.send(pass);
+        return res.send({'success': true, 'newScore': playerPoints});
         //return res.json(String(playerPoints));  // sends back to client true
       }
     }
