@@ -29,17 +29,21 @@ app.route('/buzzword')
       buzzStorage.push(req.body);
       res.json(pass);
       console.log(req.body.buzzWord + " successfully added!");
-    } else {
+    } else if (buzzStorage.length < 5){
         for(let i = 0; i < buzzStorage.length; i++){
           if(buzzStorage[i].buzzWord === req.body.buzzWord){
             console.error("Buzzword already used");
             return res.json(fail);
           }
         }
-      buzzStorage.push(req.body);
-      res.json(pass);
-      console.log(req.body.buzzWord + " successfully added!");
-      }
+       buzzStorage.push(req.body);
+       res.json(pass);
+       console.log(req.body.buzzWord + " successfully added!");
+
+    }else{
+      console.log("Too many Buzzwords");
+      return res.json(fail);
+    }
   })
 
   .put((req, res) => {
